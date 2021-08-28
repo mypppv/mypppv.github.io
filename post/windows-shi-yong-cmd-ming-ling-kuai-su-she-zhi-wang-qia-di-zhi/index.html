@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>若水</title>
+<title>windows使用cmd命令快速设置网卡地址 | 若水</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,9 +18,12 @@
 
 
 
-    <meta name="description" content="&lt;h2 &gt;&lt;code&gt;上善若水，水善利万物而不争，处众人之所恶，故几于道。&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;">
-    
+    <meta name="description" content="
+一键设置网卡ip地址
+
+netsh interface ip set address &quot;eth0&quot; static 10.0.0.158 255.255.255.0 10.0.0.3
+netsh interface ip..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -92,72 +95,43 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://mypppv.github.io/post/windows-shi-yong-cmd-ming-ling-kuai-su-she-zhi-wang-qia-di-zhi/">
-                  <h2 class="post-title">windows使用cmd命令快速设置网卡地址</h2>
-                </a>
-                <div class="post-date">
-                  2021-08-28
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://mypppv.github.io/post/ipv6-windows-cha-xun-mtu/">
-                  <h2 class="post-title">ipv6 windows 查询mtu</h2>
-                </a>
-                <div class="post-date">
-                  2021-08-28
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://mypppv.github.io/post/ipv6-kuai-su-an-zhuang-ke-xue-shang-wang-yi-jian-an-zhuang-jiao-ben/">
-                  <h2 class="post-title">ipv6快速安装科学上网,一键安装脚本</h2>
-                </a>
-                <div class="post-date">
-                  2021-08-28
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://mypppv.github.io/post/11/">
-                  <h2 class="post-title">K20 pro 刷第三方rom root</h2>
-                </a>
-                <div class="post-date">
-                  2021-08-28
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
+          <div class="post-detail">
+            <h2 class="post-title">windows使用cmd命令快速设置网卡地址</h2>
+            <div class="post-date">2021-08-28</div>
+            
+            <div class="post-content" v-pre>
+              <ul>
+<li>一键设置网卡ip地址</li>
+</ul>
+<pre><code class="language-bash">netsh interface ip set address &quot;eth0&quot; static 10.0.0.158 255.255.255.0 10.0.0.3
+netsh interface ip set dns &quot;eth0&quot; static 10.0.0.3
+pause
+</code></pre>
+<p>如下图，网卡名称手动改成了&quot;eth0&quot;</p>
+<figure data-type="image" tabindex="1"><img src="C:%5CUsers%5Croot%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210828152656818.png" alt="image-20210828152656818" loading="lazy"></figure>
+<ul>
+<li>一键设置自动获取ip和dns</li>
+</ul>
+<pre><code class="language-bash">netsh interface ip set address &quot;eth0&quot;  dhcp
+set dnsservers name=&quot;eth0&quot; source=dhcp
+</code></pre>
 
-          <div class="pagination-container">
-  
-  
-</div>
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://mypppv.github.io/post/ipv6-windows-cha-xun-mtu/">
+                  <h3 class="post-title">
+                    ipv6 windows 查询mtu
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
 
         </div>
       </div>

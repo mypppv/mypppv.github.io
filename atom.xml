@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mypppv.github.io</id>
     <title>温故而知新</title>
-    <updated>2021-08-28T06:13:18.839Z</updated>
+    <updated>2021-08-28T06:15:06.103Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mypppv.github.io"/>
     <link rel="self" href="https://mypppv.github.io/atom.xml"/>
@@ -10,15 +10,6 @@
     <logo>https://mypppv.github.io/images/avatar.png</logo>
     <icon>https://mypppv.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 温故而知新</rights>
-    <entry>
-        <title type="html"><![CDATA[dfdfdffd]]></title>
-        <id>https://mypppv.github.io/post/dfdfdffd/</id>
-        <link href="https://mypppv.github.io/post/dfdfdffd/">
-        </link>
-        <updated>2021-08-28T05:12:17.000Z</updated>
-        <content type="html"><![CDATA[<p>dfdfdfdfdfdfdf</p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://mypppv.github.io/post/hello-gridea/</id>

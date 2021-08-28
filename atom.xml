@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mypppv.github.io</id>
     <title>温故而知新</title>
-    <updated>2021-08-28T06:44:07.968Z</updated>
+    <updated>2021-08-28T06:44:53.934Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mypppv.github.io"/>
     <link rel="self" href="https://mypppv.github.io/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://mypppv.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 温故而知新</rights>
     <entry>
-        <title type="html"><![CDATA[# K20 pro 刷第三方rom root]]></title>
+        <title type="html"><![CDATA[K20 pro 刷第三方rom root]]></title>
         <id>https://mypppv.github.io/post/11/</id>
         <link href="https://mypppv.github.io/post/11/">
         </link>

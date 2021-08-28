@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mypppv.github.io</id>
     <title>温故而知新</title>
-    <updated>2021-08-28T06:32:10.564Z</updated>
+    <updated>2021-08-28T06:44:07.968Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mypppv.github.io"/>
     <link rel="self" href="https://mypppv.github.io/atom.xml"/>
@@ -11,13 +11,27 @@
     <icon>https://mypppv.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 温故而知新</rights>
     <entry>
-        <title type="html"><![CDATA[11]]></title>
+        <title type="html"><![CDATA[# K20 pro 刷第三方rom root]]></title>
         <id>https://mypppv.github.io/post/11/</id>
         <link href="https://mypppv.github.io/post/11/">
         </link>
         <updated>2021-08-28T06:30:46.000Z</updated>
-        <content type="html"><![CDATA[<p>111</p>
-<h1 id="11111111111">11111111111</h1>
+        <content type="html"><![CDATA[<p>1.下载第三方rom，下列为已知的</p>
+<p>​    https://download.pixelexperience.org/raphael</p>
+<p>​     https://t.me/redmik20proupdates</p>
+<p>2.解压platform-tool</p>
+<p>3.cmd命令进入rec，命令如下</p>
+<pre><code>fastboot boot recovery.img
+</code></pre>
+<ol start="4">
+<li>通过rec格式化所有分区，此时由于TWRP本身分区格式有问题，需要进入k20pro的rec格式化分区，然后再进入twrp挂载data分区，</li>
+<li>拷贝rom到手机，安装rom</li>
+</ol>
+<p>6、下载最新Magisk</p>
+<p>https://github.com/topjohnwu/Magisk/releases</p>
+<p>7、<a href="https://github.com/topjohnwu/Magisk/releases/download/v23.0/Magisk-v23.0.apk">Magisk-v23.0.apk</a> 更改为 Magisk-v23.0.zip ；其它版本方法一样，把apk后缀更改而已</p>
+<p>8、再次使用twrp 临时启动，刷入Magisk-v23.0.zip</p>
+<p>9、进入手机，打开Magisk，安装更新，安装到rec，直接安装，即可获取root权限</p>
 ]]></content>
     </entry>
 </feed>

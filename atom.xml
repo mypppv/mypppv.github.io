@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mypppv.github.io</id>
     <title>温故而知新</title>
-    <updated>2021-08-28T06:46:35.328Z</updated>
+    <updated>2021-08-28T06:49:56.114Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mypppv.github.io"/>
     <link rel="self" href="https://mypppv.github.io/atom.xml"/>
@@ -10,6 +10,29 @@
     <logo>https://mypppv.github.io/images/avatar.png</logo>
     <icon>https://mypppv.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 温故而知新</rights>
+    <entry>
+        <title type="html"><![CDATA[**ipv6快速安装科学上网,一键安装脚本**]]></title>
+        <id>https://mypppv.github.io/post/ipv6-kuai-su-an-zhuang-ke-xue-shang-wang-yi-jian-an-zhuang-jiao-ben/</id>
+        <link href="https://mypppv.github.io/post/ipv6-kuai-su-an-zhuang-ke-xue-shang-wang-yi-jian-an-zhuang-jiao-ben/">
+        </link>
+        <updated>2021-08-28T06:49:39.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>wireguard install</li>
+</ul>
+<pre><code class="language-bash">curl -O https://raw.githubusercontent.com/atrandys/wireguard/master/wg_mult.sh &amp;&amp; chmod +x wg_mult.sh &amp;&amp; ./wg_mult.sh
+</code></pre>
+<ul>
+<li>v2-ui install</li>
+</ul>
+<pre><code class="language-bash">bash &lt;(curl -Ls https://blog.sprov.xyz/v2-ui.sh)
+</code></pre>
+<ul>
+<li>v2-ui 监听端口为：</li>
+</ul>
+<pre><code class="language-bash">  ::
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[K20 pro 刷第三方rom root]]></title>
         <id>https://mypppv.github.io/post/11/</id>

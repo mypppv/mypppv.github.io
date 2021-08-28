@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>ipv6快速安装科学上网,一键安装脚本 | 温故而知新</title>
+<title>ipv6 windows 查询mtu | 温故而知新</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,10 +18,10 @@
 
 
 
-    <meta name="description" content="
-wireguard install
+    <meta name="description" content="C:\Users\root&gt;Netsh interface ipv6 show interface
+Idx     Met         MTU          状态                名称
 
-curl -O https://raw.githubusercontent.com/atrandys/wireguard/master/wg_mult.sh &amp;&amp; chmod +x w..." />
+---  -------..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -97,24 +97,28 @@ curl -O https://raw.githubusercontent.com/atrandys/wireguard/master/wg_mult.sh &
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">ipv6快速安装科学上网,一键安装脚本</h2>
+            <h2 class="post-title">ipv6 windows 查询mtu</h2>
             <div class="post-date">2021-08-28</div>
             
             <div class="post-content" v-pre>
-              <ul>
-<li>wireguard install</li>
-</ul>
-<pre><code class="language-bash">curl -O https://raw.githubusercontent.com/atrandys/wireguard/master/wg_mult.sh &amp;&amp; chmod +x wg_mult.sh &amp;&amp; ./wg_mult.sh
-</code></pre>
-<ul>
-<li>v2-ui install</li>
-</ul>
-<pre><code class="language-bash">bash &lt;(curl -Ls https://blog.sprov.xyz/v2-ui.sh)
-</code></pre>
-<ul>
-<li>v2-ui 监听端口为：</li>
-</ul>
-<pre><code class="language-bash">  ::
+              <p><code>C:\Users\root&gt;Netsh interface ipv6 show interface</code></p>
+<pre><code>Idx     Met         MTU          状态                名称
+
+---  ----------  ----------  ------------  ---------------------------
+
+  1          75  4294967295  connected     Loopback Pseudo-Interface 1
+
+ 31          35        1500  disconnected  VPN - VPN Client
+
+  4          25        1280  connected     以太网
+
+ 35          25        1500  disconnected  本地连接
+
+ 39           5        1420  connected     client
+
+ 29          35        1500  connected     VMware Network Adapter VMnet1
+
+ 30          35        1500  connected     VMware Network Adapter VMnet8
 </code></pre>
 
             </div>
@@ -122,9 +126,9 @@ curl -O https://raw.githubusercontent.com/atrandys/wireguard/master/wg_mult.sh &
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://mypppv.github.io/post/11/">
+                <a href="https://mypppv.github.io/post/ipv6-kuai-su-an-zhuang-ke-xue-shang-wang-yi-jian-an-zhuang-jiao-ben/">
                   <h3 class="post-title">
-                    K20 pro 刷第三方rom root
+                    ipv6快速安装科学上网,一键安装脚本
                   </h3>
                 </a>
               </div>

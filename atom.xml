@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mypppv.github.io</id>
     <title>温故而知新</title>
-    <updated>2021-08-28T06:50:08.462Z</updated>
+    <updated>2021-08-28T06:55:38.832Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mypppv.github.io"/>
     <link rel="self" href="https://mypppv.github.io/atom.xml"/>
@@ -11,7 +11,34 @@
     <icon>https://mypppv.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 温故而知新</rights>
     <entry>
-        <title type="html"><![CDATA[**ipv6快速安装科学上网,一键安装脚本**]]></title>
+        <title type="html"><![CDATA[ipv6 windows 查询mtu]]></title>
+        <id>https://mypppv.github.io/post/ipv6-windows-cha-xun-mtu/</id>
+        <link href="https://mypppv.github.io/post/ipv6-windows-cha-xun-mtu/">
+        </link>
+        <updated>2021-08-28T06:55:12.000Z</updated>
+        <content type="html"><![CDATA[<p><code>C:\Users\root&gt;Netsh interface ipv6 show interface</code></p>
+<pre><code>Idx     Met         MTU          状态                名称
+
+---  ----------  ----------  ------------  ---------------------------
+
+  1          75  4294967295  connected     Loopback Pseudo-Interface 1
+
+ 31          35        1500  disconnected  VPN - VPN Client
+
+  4          25        1280  connected     以太网
+
+ 35          25        1500  disconnected  本地连接
+
+ 39           5        1420  connected     client
+
+ 29          35        1500  connected     VMware Network Adapter VMnet1
+
+ 30          35        1500  connected     VMware Network Adapter VMnet8
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ipv6快速安装科学上网,一键安装脚本]]></title>
         <id>https://mypppv.github.io/post/ipv6-kuai-su-an-zhuang-ke-xue-shang-wang-yi-jian-an-zhuang-jiao-ben/</id>
         <link href="https://mypppv.github.io/post/ipv6-kuai-su-an-zhuang-ke-xue-shang-wang-yi-jian-an-zhuang-jiao-ben/">
         </link>

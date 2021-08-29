@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>K20 pro 刷第三方rom root | 若水</title>
+<title># FreeBSD开启SSH远程登录 | 若水</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,11 +18,12 @@
 
 
 
-    <meta name="description" content="1.下载第三方rom，下列为已知的
-​    https://download.pixelexperience.org/raphael
-​     https://t.me/redmik20proupdates
-2.解压platform-t..." />
-    <meta name="keywords" content="手机" />
+    <meta name="description" content="1、安装时选择上SSH，或者源码安装SSH
+2、使用root登陆系统
+4、编辑/etc/rc.conf，添加一行sshd_enable=&quot;YES&quot;
+5、编辑/etc/ssh/sshd_config，将
+#PermitRo..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -95,37 +96,34 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">K20 pro 刷第三方rom root</h2>
-            <div class="post-date">2021-08-28</div>
+            <h2 class="post-title"># FreeBSD开启SSH远程登录</h2>
+            <div class="post-date">2021-08-29</div>
             
             <div class="post-content" v-pre>
-              <p>1.下载第三方rom，下列为已知的</p>
-<p>​    https://download.pixelexperience.org/raphael</p>
-<p>​     https://t.me/redmik20proupdates</p>
-<p>2.解压platform-tool</p>
-<p>3.cmd命令进入rec，命令如下</p>
-<pre><code>fastboot boot recovery.img
-</code></pre>
-<ol start="4">
-<li>通过rec格式化所有分区，此时由于TWRP本身分区格式有问题，需要进入k20pro的rec格式化分区，然后再进入twrp挂载data分区，</li>
-<li>拷贝rom到手机，安装rom</li>
-</ol>
-<p>6、下载最新Magisk</p>
-<p>https://github.com/topjohnwu/Magisk/releases</p>
-<p>7、<a href="https://github.com/topjohnwu/Magisk/releases/download/v23.0/Magisk-v23.0.apk">Magisk-v23.0.apk</a> 更改为 Magisk-v23.0.zip ；其它版本方法一样，把apk后缀更改而已</p>
-<p>8、再次使用twrp 临时启动，刷入Magisk-v23.0.zip</p>
-<p>9、进入手机，打开Magisk，安装更新，安装到rec，直接安装，即可获取root权限</p>
+              <p>1、安装时选择上SSH，或者源码安装SSH<br>
+2、使用root登陆系统<br>
+4、编辑/etc/rc.conf，添加一行sshd_enable=&quot;YES&quot;<br>
+5、编辑/etc/ssh/sshd_config，将<br>
+#PermitRootLogin no改为PermitRootLogin yes //允许root登陆<br>
+#PasswordAuthentication no改为PasswordAuthenticationyes//使用系统PAM认证<br>
+#PermitEmptyPasswords no改为PermitEmptyPasswords no//不允许空密码</p>
+<p>修改端口号：/etc/ssh/sshd_config</p>
+<p>#port=22改为 Port=number（你想修改的数字）</p>
+<p>保存退出<br>
+6、启动SSHD服务，/etc/rc.d/sshd start<br>
+7、查看服务是否启动，netstat -an，如果看到22端口有监听，恭喜！！！</p>
 
             </div>
             
-              <div class="tag-container">
-                
-                  <a href="https://mypppv.github.io/tag/oEfoPoSwP/" class="tag">
-                    手机
-                  </a>
-                
-              </div>
             
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://mypppv.github.io/post/windows-shi-yong-cmd-ming-ling-kuai-su-she-zhi-wang-qia-di-zhi/">
+                  <h3 class="post-title">
+                    windows使用cmd命令快速设置网卡地址
+                  </h3>
+                </a>
+              </div>
             
 
             

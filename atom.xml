@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mypppv.github.io</id>
     <title>若水</title>
-    <updated>2021-08-31T15:31:39.578Z</updated>
+    <updated>2021-09-03T15:49:12.707Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mypppv.github.io"/>
     <link rel="self" href="https://mypppv.github.io/atom.xml"/>
@@ -11,6 +11,283 @@
     <logo>https://mypppv.github.io/images/avatar.png</logo>
     <icon>https://mypppv.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 若水</rights>
+    <entry>
+        <title type="html"><![CDATA[How to install Awall on Alpine Linux]]></title>
+        <id>https://mypppv.github.io/post/how-to-install-awall-on-alpine-linux/</id>
+        <link href="https://mypppv.github.io/post/how-to-install-awall-on-alpine-linux/">
+        </link>
+        <updated>2021-09-03T15:48:56.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/">简悦 SimpRead</a> 转码， 原文地址 [www.cyberciti.biz]</p>
+</blockquote>
+<h2 id="how-to-install-awall-on-alpine-linux">How to install Awall on Alpine Linux</h2>
+<p>You need to update system using the <a href="https://www.cyberciti.biz/faq/10-alpine-linux-apk-command-examples/" title="See Linux/Unix apk command examples for more info">apk command</a>:<br>
+`# apk update &amp;&amp; apk upgrade</p>
+<h2 id="install-both-ipv4-and-ipv6-version-of-iptables">Install both IPv4 and IPv6 version of IPtables</h2>
+<h1 id="apk-add-ip6tables-iptables">apk add ip6tables iptables</h1>
+<h2 id="install-awall">Install awall</h2>
+<h1 id="apk-add-u-awall">apk add -u awall</h1>
+<h2 id="verify-it">Verify it</h2>
+<h1 id="apk-version-awall">apk version awall`</h1>
+<p><img src="https://www.cyberciti.biz/media/new/faq/2020/09/How-To-Set-Up-a-Firewall-with-Awall-on-Alpine-Linux.jpg" alt="How To Set Up a Firewall with Awall on Alpine Linux" loading="lazy"><img src="https://www.cyberciti.biz/media/new/faq/2020/09/How-To-Set-Up-a-Firewall-with-Awall-on-Alpine-Linux.jpg" alt="How To Set Up a Firewall with Awall on Alpine Linux" loading="lazy"></p>
+<h2 id="understanding-awall-concepts">Understanding Awall concepts</h2>
+<p>Awall configuration starts with a single or multiple JSON-formatted files named policy file. The mandatory policies shipped with Alpine Linux are located at /usr/share/awall/mandatory and viewed with the ls command/<a href="https://www.cyberciti.biz/faq/linux-unix-appleosx-bsd-cat-command-examples/" title="See Linux/Unix cat command examples for more info">cat command</a>:<br>
+`# ls -l /usr/share/awall/mandatory/</p>
+<h1 id="more-usrshareawallmandatoryservicesjson">more /usr/share/awall/mandatory/services.json</h1>
+<h1 id="cat-usrshareawallmandatorydefaultsjson">cat /usr/share/awall/mandatory/defaults.json`</h1>
+<p><img src="https://www.cyberciti.biz/media/new/faq/2020/09/Awall-default-policy-files.jpg" alt="Awall default policy files on Alpine Linux" loading="lazy"><img src="https://www.cyberciti.biz/media/new/faq/2020/09/Awall-default-policy-files.jpg" alt="Awall default policy files on Alpine Linux" loading="lazy"><br>
+However, developers and sysadmins need to install server specific custom policies in /etc/awall directory:<br>
+<code># ls /etc/awall/</code><br>
+Each awall policy can contain definitions for:</p>
+<ol>
+<li><strong>Variables</strong> (like $interface_name)</li>
+<li><strong>zones</strong> (like internet, lan, red_zone, green_zone, blue_zone) – ones are defined based on a interface and assigned a name to be used in your policies.</li>
+<li><strong>interfaces</strong> (like eth0)</li>
+<li><strong>policies</strong> – The policy is what tell Awall what to do with when a packet enters or leaves from one of the zones (interfaces).</li>
+<li><strong>filters</strong> and NAT rules</li>
+<li><strong>services</strong> (like nginx or mysql)</li>
+</ol>
+<p><strong>snat</strong> – Apply source nat for outgoing packets. Translate from local ip to public ip. In other words your Alpine box act as a router.</p>
+<p>Let us see how to configure Awall for a dedicated VM or bare metal server where eth0 is connected to the high-speed Internet, and we need to protect the server. Our goal is to allow ssh (22), ping, and HTTP (80) + HTTPS (4430 ports only.</p>
+<h3 id="step-1-prerequisites">Step 1. Prerequisites</h3>
+<p>First we must load Linux kernel drivers (modules) for firewall using the modprobe command:<br>
+`# modprobe -v ip_tables # IPv4</p>
+<h1 id="modprobe-v-ip6_tables-if-ipv6-is-used">modprobe -v ip6_tables # if IPv6 is used</h1>
+<h1 id="modprobe-v-iptable_nat-if-nat-is-used-aka-router">modprobe -v iptable_nat # if NAT is used aka router`</h1>
+<pre><code>insmod /lib/modules/5.4.43-1-virt/kernel/net/netfilter/x_tables.ko 
+insmod /lib/modules/5.4.43-1-virt/kernel/net/ipv4/netfilter/ip_tables.ko ip6_tables
+</code></pre>
+<p>Please note that the above commands needed only the first time, after awall installation. Next, make the firewall autostart at boot time and autoload the required Linux kernel modules:<br>
+`# <strong>rc-update add iptables</strong></p>
+<ul>
+<li>service ip6tables added to runlevel default</li>
+</ul>
+<h1 id="rc-update-add-ip6tables"><strong>rc-update add ip6tables</strong></h1>
+<ul>
+<li>service ip6tables added to runlevel default<code>Please note that Awall is a frontend tool that creates rules. All firewall rules stored in /etc/iptables/ directory. Firewall service can be stopped or restarted any time using the following commands:</code># ls -l /etc/iptables/</li>
+</ul>
+<h1 id="cat-etciptablesrules-save">cat /etc/iptables/rules-save</h1>
+<h1 id="rc-service-iptables-startstoprestartstatus">rc-service iptables {start|stop|restart|status}</h1>
+<h1 id="rc-service-ip6tables-startstoprestartstatus">rc-service ip6tables {start|stop|restart|status}`</h1>
+<p><img src="https://www.cyberciti.biz/media/new/faq/2020/09/Alpine-Linux-start-stop-and-restart-firewall-command.jpg" alt="Alpine Linux start stop and restart firewall command" loading="lazy"><img src="https://www.cyberciti.biz/media/new/faq/2020/09/Alpine-Linux-start-stop-and-restart-firewall-command.jpg" alt="Alpine Linux start stop and restart firewall command" loading="lazy"></p>
+<p>Alpine Linux command to control iptables firewall</p>
+<h3 id="step-2-set-up-a-firewall-with-awall-to-protect-alpine-linux-box">Step 2. Set up a firewall with Awall to protect Alpine Linux box</h3>
+<p>Create a new file called cloud-server.json as follows to drop all incoming, and outgoing traffic using a text editor. Here is my sample file to protect cloud server hosted at <a href="https://www.linode.com/">Linode</a>:<br>
+<code># cat /etc/awall/optional/cloud-server.json</code></p>
+<pre><code>{
+  &quot;description&quot;: &quot;Default awall policy to protect Cloud server&quot;,
+ 
+  &quot;variable&quot;: { &quot;internet_if&quot;: &quot;eth0&quot; },
+ 
+  &quot;zone&quot;: {
+    &quot;internet&quot;: { &quot;iface&quot;: &quot;$internet_if&quot; }
+  },
+ 
+  &quot;policy&quot;: [
+    { &quot;in&quot;: &quot;internet&quot;, &quot;action&quot;: &quot;drop&quot; },
+    { &quot;action&quot;: &quot;reject&quot; }
+  ]
+ 
+}
+</code></pre>
+<p>Next open TCP port 22. In other words, allow incoming SSH access with the maximum ssh login rate limit to avoid attackers/bots brute-forcing into our Alpine cloud server:<br>
+<code># cat /etc/awall/optional/ssh.json</code></p>
+<pre><code>{
+ 
+    &quot;description&quot;: &quot;Allow incoming SSH access (TCP/22)&quot;,
+ 
+    &quot;filter&quot;: [
+        {
+            &quot;in&quot;: &quot;internet&quot;,
+            &quot;out&quot;: &quot;_fw&quot;,
+            &quot;service&quot;: &quot;ssh&quot;,
+            &quot;action&quot;: &quot;accept&quot;,
+	    &quot;conn-limit&quot;: { &quot;count&quot;: 3, &quot;interval&quot;: 60 }
+        }
+    ]
+}
+</code></pre>
+<p>Where,</p>
+<ul>
+<li><strong>&quot;in&quot;: &quot;internet&quot;,</strong> : The internet is our default zone and we are creating incoming policy to open TCP port 22.</li>
+<li><strong>&quot;out&quot;: &quot;_fw&quot;,</strong> : AWall has a built-in zone named “_fw” which is the “firewall itself”.</li>
+<li><strong>&quot;service&quot;: &quot;ssh&quot;,</strong> : Open SSH port 22.</li>
+<li><strong>&quot;action&quot;: &quot;accept&quot;,</strong> : Accept the packet.</li>
+<li><strong>&quot;conn-limit&quot;: { &quot;count&quot;: 3, &quot;interval&quot;: 60 }</strong> : Rate limit ssh connections.</li>
+</ul>
+<h3 id="a-note-about-restricting-ssh-traffic-from-specific-ip-address-or-subnet-cidr">A note about restricting ssh traffic from specific IP address or sub/net (CIDR)</h3>
+<p>Update your ssh.json as follows with &quot;src&quot;: &quot;1.2.3.4&quot;, option:</p>
+<pre><code>{
+    &quot;description&quot;: &quot;Allow incoming SSH access (TCP/22) only from our office VPN at 1.2.3.4&quot;,
+    &quot;filter&quot;: [
+        {
+            &quot;in&quot;: &quot;internet&quot;,
+            &quot;out&quot;: &quot;_fw&quot;,
+            &quot;service&quot;: &quot;ssh&quot;,
+            &quot;action&quot;: &quot;accept&quot;,
+            &quot;src&quot;: &quot;1.2.3.4&quot;,
+	    &quot;conn-limit&quot;: { &quot;count&quot;: 3, &quot;interval&quot;: 60 }
+        }
+    ]
+}
+</code></pre>
+<p>For multiple IPs/CIDRs, try it as follows:</p>
+<pre><code>      &quot;src&quot;: [ &quot;1.2.3.4&quot;, &quot;192.168.2.0/24&quot;, &quot;202.54.5.1&quot; ],
+
+</code></pre>
+<p>Be a good netizen and allow ping/ICMP request to our server with rate limits applied:<br>
+<code># cat /etc/awall/optional/ping.json</code></p>
+<pre><code>{
+ 
+    &quot;description&quot;: &quot;Allow ping-pong&quot;,
+ 
+    &quot;filter&quot;: [
+        {
+	      &quot;in&quot;: &quot;internet&quot;,
+	      &quot;service&quot;: &quot;ping&quot;,
+	      &quot;action&quot;: &quot;accept&quot;,
+ 	      &quot;flow-limit&quot;: { &quot;count&quot;: 10, &quot;interval&quot;: 6 }
+        }
+    ]
+}
+</code></pre>
+<p>Finally allow selected outgoing connections for HTTP/HTTPS, DNS, ping, ssh, DNS and NTP protocols:<br>
+<code># cat /etc/awall/optional/outgoing.json</code></p>
+<pre><code>{
+ 
+    &quot;description&quot;: &quot;Allow outgoing connections for dns, http/https, ssh, ntp, ssh and ping&quot;,
+ 
+    &quot;filter&quot;: [
+    	{
+            &quot;in&quot;: &quot;_fw&quot;,
+            &quot;out&quot;: &quot;internet&quot;,
+            &quot;service&quot;: [ &quot;dns&quot;, &quot;http&quot;, &quot;https&quot;, &quot;ssh&quot;, &quot;ntp&quot;, &quot;ping&quot; ],
+            &quot;action&quot;: &quot;accept&quot;
+	}
+    ]
+}
+</code></pre>
+<h3 id="step-3-list-awall-available-policys">Step 3. List Awall available policy(s)</h3>
+<p>Run:<br>
+<code># awall list</code><br>
+Outputs:</p>
+<pre><code>cloud-server  disabled  Default awall policy to protect Cloud server
+outgoing      disabled  Allow outgoing connections for dns, http/https, ssh, ntp, ssh and ping
+ping          disabled  Allow ping-pong
+ssh           disabled  Allow incoming SSH access (TCP/22)
+</code></pre>
+<h3 id="step-4-enables-the-awall-firewall-policy">Step 4. Enables the Awall firewall policy</h3>
+<p>Again run:<br>
+`# awall enable cloud-server</p>
+<h1 id="awall-enable-ssh">awall enable ssh</h1>
+<h1 id="awall-enable-ping">awall enable ping</h1>
+<h1 id="awall-enable-outgoing">awall enable outgoing`</h1>
+<h3 id="step-5-start-the-firewall">Step 5. Start the firewall</h3>
+<p>Finally we need to create firewall configuration from the policy files and enables it. In other words the following command will starts the firewall and load all rules:<br>
+<code># awall activate</code><br>
+You will be prompted to hit the RETURN key as follows:</p>
+<pre><code>New firewall configuration activated
+Press RETURN to commit changes permanently: 
+</code></pre>
+<p><strong>NOTE</strong>: After enabling or disabling policy, you always need to run <strong>awall activate</strong> command to update the iptables rules.</p>
+<h3 id="step-6-open-incoming-http-and-https-ports">Step 6. Open incoming HTTP and HTTPS ports</h3>
+<p>Create a new policy file called apache.json as follows:<br>
+<code># vi /etc/awall/optional/apache.json</code></p>
+<pre><code>{
+    &quot;description&quot;: &quot;Allow incoming Apache HTTP/HTTPS (TCP/80 and 443) ports&quot;,
+    &quot;filter&quot;: [
+        {
+            &quot;in&quot;: &quot;internet&quot;,
+            &quot;out&quot;: &quot;_fw&quot;,
+            &quot;service&quot;: [ &quot;http&quot;, &quot;https&quot;],
+            &quot;action&quot;: &quot;accept&quot;
+        }
+    ]
+}
+</code></pre>
+<p><a href="https://www.cyberciti.biz/faq/linux-unix-vim-save-and-quit-command/">Save and close the file.</a> Next activate new firewall policy rule:<br>
+`# awall enable apache</p>
+<h1 id="awall-activate">awall activate`</h1>
+<h3 id="step-7-close-port-or-diable-existing-policy">Step 7. Close port or diable existing policy</h3>
+<p>Say you have a policy named openvpn.json, and you no longer use the OpenVPN server. We can close the UDP/1194 port as follows by disabling the policy:<br>
+`# awall list</p>
+<h1 id="awall-disable-openvpn">awall disable openvpn</h1>
+<h1 id="awall-activate-2">awall activate`</h1>
+<h3 id="step-8-view-iptables-rules">Step 8. View iptables rules</h3>
+<p>You can <a href="https://www.cyberciti.biz/faq/how-to-list-all-iptables-rules-in-linux/">list all iptables rules</a> using the following commands:<br>
+`# iptables -L -n -v | more</p>
+<h1 id="ip6tables-l-n-v-more">ip6tables -L -n -v | more</h1>
+<h1 id="ip6tables-s">ip6tables -S</h1>
+<h1 id="iptables-s">iptables -S`</h1>
+<p><img src="https://www.cyberciti.biz/media/new/faq/2020/09/How-to-list-Alpine-Wall-iptables-rules.jpg" alt="How to list Alpine Wall iptables rules" loading="lazy"><img src="https://www.cyberciti.biz/media/new/faq/2020/09/How-to-list-Alpine-Wall-iptables-rules.jpg" alt="How to list Alpine Wall iptables rules" loading="lazy"><br>
+Want to see dropped packets log? Try the dmesg command and <a href="https://www.cyberciti.biz/faq/howto-use-grep-command-in-linux-unix/" title="See Linux/Unix grep command examples for more info">grep command</a>:<br>
+`# dmesg</p>
+<h2 id="see-dropped-packets-from-ssh-port">See dropped packets from SSH port</h2>
+<h1 id="dmesg-grep-w-dpt22">dmesg | grep -w DPT=22`</h1>
+<pre><code>[ 3532.077008] IN=eth0 OUT= MAC=f2:3c:92:64:16:11:aa:01:9d:43:81:e6:08:00 SRC=194.180.224.130 DST=172.105.xx.yy LEN=60 TOS=0x00 PREC=0x20 TTL=49 ID=9647 DF PROTO=TCP SPT=33106 DPT=22 WINDOW=29200 RES=0x00 SYN URGP=0 
+[ 3532.077347] IN=eth0 OUT= MAC=f2:3c:92:64:16:11:aa:01:9d:43:81:e6:08:00 SRC=194.180.224.130 DST=172.105.xx.yy LEN=60 TOS=0x00 PREC=0x20 TTL=50 ID=35762 DF PROTO=TCP SPT=33110 DPT=22 WINDOW=29200 RES=0x00 SYN URGP=0 
+[ 3533.078293] IN=eth0 OUT= MAC=f2:3c:92:64:16:11:aa:01:9d:43:81:e6:08:00 SRC=194.180.224.130 DST=172.105.xx.yy LEN=60 TOS=0x00 PREC=0x20 TTL=50 ID=35763 DF PROTO=TCP SPT=33110 DPT=22 WINDOW=29200 RES=0x00 SYN URGP=0
+</code></pre>
+<h3 id="step-9-disabling-and-resetting-awall">Step 9. Disabling and resetting Awall</h3>
+<p>For any reason you no longer want to use firewall and Awall, you can disable it with following commands:<br>
+`# rc-service iptables stop</p>
+<h1 id="rc-service-ip6tables-stop">rc-service ip6tables stop`</h1>
+<pre><code> * Saving ip6tables state ...                        [ ok ]
+ * Stopping firewall ...                             [ ok ]
+
+</code></pre>
+<p>Now list and disable all policies:<br>
+`# awall list</p>
+<h1 id="awall-disable-cloud-server">awall disable cloud-server</h1>
+<h1 id="awall-disable-ssh">awall disable ssh</h1>
+<h1 id="awall-disable-ping">awall disable ping</h1>
+<h1 id="awall-disable-outgoing">awall disable outgoing`</h1>
+<p>Finally disable iptables firewall service on your Alpine Linux box using the rc-update command:<br>
+`# rc-update del ip6tables</p>
+<h1 id="rc-update-del-iptables">rc-update del iptables`</h1>
+<p>Patreon supporters only guides 🤓</p>
+<ul>
+<li>
+<p>No ads and tracking</p>
+</li>
+<li>
+<p>In-depth guides for developers and sysadmins at <a href="https://www.opensourceflare.com">Opensourceflare</a>✨</p>
+</li>
+<li>
+<p>Join my Patreon to support independent content creators and start reading latest guides:</p>
+</li>
+<li>
+<p><a href="https://www.opensourceflare.com/how-to-set-up-redis-sentinel-cluster-on-ubuntu-or-debian-linux/">How to set up Redis sentinel cluster on Ubuntu or Debian Linux</a></p>
+</li>
+<li>
+<p><a href="https://www.opensourceflare.com/how-to-set-up-ssh-keys-with-yubikey-as-two-factor-authentication-u2f-fido2/">How To Set Up SSH Keys With YubiKey as two-factor authentication (U2F/FIDO2)</a></p>
+</li>
+<li>
+<p><a href="https://www.opensourceflare.com/how-to-set-up-mariadb-galera-cluster-on-ubuntu-or-debian-linux/">How to set up Mariadb Galera cluster on Ubuntu or Debian Linux</a></p>
+</li>
+</ul>
+<p><a href="https://www.patreon.com/nixcraft">Join <strong>Patreon</strong> ➔</a></p>
+<pre><code> * service iptables removed from runlevel default
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this quick tutorial, we learned about Awall and set up a default firewall policy that drops all incoming and outgoing connections on Alpine Linux. Next, we opened the required ports as per our needs. Try awall help as follows:<br>
+<code># awall help</code><br>
+See the following resources for further information:</p>
+<ul>
+<li>Awall <a href="https://gitlab.alpinelinux.org/alpine/awall">project</a> home page.</li>
+<li>Awall <a href="https://wiki.alpinelinux.org/wiki/Alpine_Wall">document from the</a> Alpine Linux wiki.</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Alpine Linux 常用命令]]></title>
+        <id>https://mypppv.github.io/post/alpine-linux-chang-yong-ming-ling/</id>
+        <link href="https://mypppv.github.io/post/alpine-linux-chang-yong-ming-ling/">
+        </link>
+        <updated>2021-09-02T12:56:52.000Z</updated>
+        <content type="html"><![CDATA[<p>1</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Alpine Linux 更换软件源]]></title>
         <id>https://mypppv.github.io/post/alpine-linux-geng-huan-ruan-jian-yuan/</id>
@@ -688,53 +965,6 @@ exit
 
  30          35        1500  connected     VMware Network Adapter VMnet8
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ipv6快速安装科学上网,一键安装脚本]]></title>
-        <id>https://mypppv.github.io/post/ipv6-kuai-su-an-zhuang-ke-xue-shang-wang-yi-jian-an-zhuang-jiao-ben/</id>
-        <link href="https://mypppv.github.io/post/ipv6-kuai-su-an-zhuang-ke-xue-shang-wang-yi-jian-an-zhuang-jiao-ben/">
-        </link>
-        <updated>2021-08-28T06:49:39.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li>wireguard install</li>
-</ul>
-<pre><code class="language-bash">curl -O https://raw.githubusercontent.com/atrandys/wireguard/master/wg_mult.sh &amp;&amp; chmod +x wg_mult.sh &amp;&amp; ./wg_mult.sh
-</code></pre>
-<ul>
-<li>v2-ui install</li>
-</ul>
-<pre><code class="language-bash">bash &lt;(curl -Ls https://blog.sprov.xyz/v2-ui.sh)
-</code></pre>
-<ul>
-<li>v2-ui 监听端口为：</li>
-</ul>
-<pre><code class="language-bash">  ::
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[K20 pro 刷第三方rom root]]></title>
-        <id>https://mypppv.github.io/post/11/</id>
-        <link href="https://mypppv.github.io/post/11/">
-        </link>
-        <updated>2021-08-28T06:30:46.000Z</updated>
-        <content type="html"><![CDATA[<p>1.下载第三方rom，下列为已知的</p>
-<p>​    https://download.pixelexperience.org/raphael</p>
-<p>​     https://t.me/redmik20proupdates</p>
-<p>2.解压platform-tool</p>
-<p>3.cmd命令进入rec，命令如下</p>
-<pre><code>fastboot boot recovery.img
-</code></pre>
-<ol start="4">
-<li>通过rec格式化所有分区，此时由于TWRP本身分区格式有问题，需要进入k20pro的rec格式化分区，然后再进入twrp挂载data分区，</li>
-<li>拷贝rom到手机，安装rom</li>
-</ol>
-<p>6、下载最新Magisk</p>
-<p>https://github.com/topjohnwu/Magisk/releases</p>
-<p>7、<a href="https://github.com/topjohnwu/Magisk/releases/download/v23.0/Magisk-v23.0.apk">Magisk-v23.0.apk</a> 更改为 Magisk-v23.0.zip ；其它版本方法一样，把apk后缀更改而已</p>
-<p>8、再次使用twrp 临时启动，刷入Magisk-v23.0.zip</p>
-<p>9、进入手机，打开Magisk，安装更新，安装到rec，直接安装，即可获取root权限</p>
 ]]></content>
     </entry>
 </feed>

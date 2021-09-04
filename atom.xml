@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mypppv.github.io</id>
     <title>若水</title>
-    <updated>2021-09-04T02:59:51.785Z</updated>
+    <updated>2021-09-04T04:55:19.221Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mypppv.github.io"/>
     <link rel="self" href="https://mypppv.github.io/atom.xml"/>
@@ -11,6 +11,30 @@
     <logo>https://mypppv.github.io/images/avatar.png</logo>
     <icon>https://mypppv.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 若水</rights>
+    <entry>
+        <title type="html"><![CDATA[github 推送]]></title>
+        <id>https://mypppv.github.io/post/github-tui-song/</id>
+        <link href="https://mypppv.github.io/post/github-tui-song/">
+        </link>
+        <updated>2021-09-04T04:50:24.000Z</updated>
+        <content type="html"><![CDATA[<pre><code>
+</code></pre>
+<h3 id="用户信息">用户信息</h3>
+<p>配置个人的用户名称和电子邮件地址：</p>
+<pre><code>$ git config --global user.name &quot;XXXX&quot;
+$ git config --global user.email XXXXX
+</code></pre>
+<pre><code>git remote add origin https://github.com/mypppv/myapp.git
+</code></pre>
+<p>登录进去后，</p>
+<pre><code>git add .
+git commit -m &quot;123&quot;
+git push
+</code></pre>
+<pre><code>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
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ROS搭建l2tp双端vpn]]></title>
         <id>https://mypppv.github.io/post/ros-da-jian-l2tp-shuang-duan-vpn/</id>
@@ -907,51 +931,6 @@ root     sendmail   820   3  tcp4   127.0.0.1:25          *:*
 <p>保存退出<br>
 6、启动SSHD服务，/etc/rc.d/sshd onestart<br>
 7、查看服务是否启动，netstat -an，如果看到22端口有监听，恭喜！！！</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[windows使用cmd命令快速设置网卡地址]]></title>
-        <id>https://mypppv.github.io/post/windows-shi-yong-cmd-ming-ling-kuai-su-she-zhi-wang-qia-di-zhi/</id>
-        <link href="https://mypppv.github.io/post/windows-shi-yong-cmd-ming-ling-kuai-su-she-zhi-wang-qia-di-zhi/">
-        </link>
-        <updated>2021-08-28T07:35:16.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li>一键设置网卡ip地址</li>
-</ul>
-<pre><code class="language-bash">netsh interface ip set address &quot;eth0&quot; static 10.0.0.158 255.255.255.0 10.0.0.3
-netsh interface ip set dns &quot;eth0&quot; static 10.0.0.3
-pause
-</code></pre>
-<p>如下图，网卡名称手动改成了&quot;eth0&quot;<br>
-<img src="https://mypppv.github.io/post-images/1630136293101.png" alt="" loading="lazy"></p>
-<ul>
-<li>一键设置自动获取ip和dns</li>
-</ul>
-<pre><code class="language-bash">netsh interface ip set address &quot;eth0&quot;  dhcp
-netsh interface ip set dns name=&quot;eth0&quot; source=dhcp
-pause
-</code></pre>
-<ul>
-<li>升级版脚本,可以自动判断并设置ip地址</li>
-</ul>
-<pre><code>@echo off
-netsh interface ip  show dnsservers | findstr 10.0.0.3
-if %errorlevel% NEQ 1 GOTO set_ip_dhcp
-:set_ip_static_addr
-netsh interface ip set address &quot;eth0&quot; static 10.0.0.158 255.255.255.0 10.0.0.3
-netsh interface ip set dns &quot;eth0&quot; static 10.0.0.3
-cls
-echo &quot;设置了静态ip地址&quot;
-pause
-exit
-:set_ip_dhcp
-netsh interface ip set address &quot;eth0&quot;  dhcp
-netsh interface ip set dns name=&quot;eth0&quot; source=dhcp
-cls
-echo &quot;取消了静态ip地址&quot;
-pause
-exit
-</code></pre>
 ]]></content>
     </entry>
 </feed>

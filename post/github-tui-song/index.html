@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>windows使用cmd命令快速设置网卡地址 | 若水</title>
+<title>github 推送 | 若水</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -19,10 +19,13 @@
 
 
     <meta name="description" content="
-一键设置网卡ip地址
 
-netsh interface ip set address &quot;eth0&quot; static 10.0.0.158 255.255.255.0 10.0.0.3
-netsh interface ip..." />
+用户信息
+配置个人的用户名称和电子邮件地址：
+$ git config --global user.name &quot;XXXX&quot;
+$ git config --global user.email XXXXX
+
+git re..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -96,46 +99,25 @@ netsh interface ip..." />
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">windows使用cmd命令快速设置网卡地址</h2>
-            <div class="post-date">2021-08-28</div>
+            <h2 class="post-title">github 推送</h2>
+            <div class="post-date">2021-09-04</div>
             
             <div class="post-content" v-pre>
-              <ul>
-<li>一键设置网卡ip地址</li>
-</ul>
-<pre><code class="language-bash">netsh interface ip set address &quot;eth0&quot; static 10.0.0.158 255.255.255.0 10.0.0.3
-netsh interface ip set dns &quot;eth0&quot; static 10.0.0.3
-pause
+              <pre><code>
 </code></pre>
-<p>如下图，网卡名称手动改成了&quot;eth0&quot;<br>
-<img src="https://mypppv.github.io/post-images/1630136293101.png" alt="" loading="lazy"></p>
-<ul>
-<li>一键设置自动获取ip和dns</li>
-</ul>
-<pre><code class="language-bash">netsh interface ip set address &quot;eth0&quot;  dhcp
-netsh interface ip set dns name=&quot;eth0&quot; source=dhcp
-pause
+<h3 id="用户信息">用户信息</h3>
+<p>配置个人的用户名称和电子邮件地址：</p>
+<pre><code>$ git config --global user.name &quot;XXXX&quot;
+$ git config --global user.email XXXXX
 </code></pre>
-<ul>
-<li>升级版脚本,可以自动判断并设置ip地址</li>
-</ul>
-<pre><code>@echo off
-netsh interface ip  show dnsservers | findstr 10.0.0.3
-if %errorlevel% NEQ 1 GOTO set_ip_dhcp
-:set_ip_static_addr
-netsh interface ip set address &quot;eth0&quot; static 10.0.0.158 255.255.255.0 10.0.0.3
-netsh interface ip set dns &quot;eth0&quot; static 10.0.0.3
-cls
-echo &quot;设置了静态ip地址&quot;
-pause
-exit
-:set_ip_dhcp
-netsh interface ip set address &quot;eth0&quot;  dhcp
-netsh interface ip set dns name=&quot;eth0&quot; source=dhcp
-cls
-echo &quot;取消了静态ip地址&quot;
-pause
-exit
+<pre><code>git remote add origin https://github.com/mypppv/myapp.git
+</code></pre>
+<p>登录进去后，</p>
+<pre><code>git add .
+git commit -m &quot;123&quot;
+git push
+</code></pre>
+<pre><code>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
 </code></pre>
 
             </div>
@@ -143,9 +125,9 @@ exit
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://mypppv.github.io/post/ipv6-windows-cha-xun-mtu/">
+                <a href="https://mypppv.github.io/post/ros-da-jian-l2tp-shuang-duan-vpn/">
                   <h3 class="post-title">
-                    ipv6 windows 查询mtu
+                    ROS搭建l2tp双端vpn
                   </h3>
                 </a>
               </div>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>freebsd 查看端口占用 | 若水</title>
+<title>ROS搭建l2tp双端vpn | 若水</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,9 +18,10 @@
 
 
 
-    <meta name="description" content="使用25端口占用情况，执行 sockstat -4l | grep 25 即可：
-root@freebsd:~ #  sockstat -4l | grep 25
-root     sendmail   820   3  tcp4   12..." />
+    <meta name="description" content="
+server ：
+
+/ppp secret add local-address=10.1.1.1 name=wu password=“自定义” profile=default-encryption remote-address=10.1...." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -94,29 +95,54 @@ root     sendmail   820   3  tcp4   12..." />
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">freebsd 查看端口占用</h2>
-            <div class="post-date">2021-08-29</div>
+            <h2 class="post-title">ROS搭建l2tp双端vpn</h2>
+            <div class="post-date">2021-09-04</div>
             
             <div class="post-content" v-pre>
-              <p>使用25端口占用情况，执行 sockstat -4l | grep 25 即可：</p>
-<pre><code>root@freebsd:~ #  sockstat -4l | grep 25
-root     sendmail   820   3  tcp4   127.0.0.1:25          *:*
+              <ul>
+<li>server ：</li>
+</ul>
+<pre><code class="language-bash">/ppp secret add local-address=10.1.1.1 name=wu password=“自定义” profile=default-encryption remote-address=10.1.1.2 service=l2tp
+/interface l2tp-server server set enabled=yes
 </code></pre>
-<p>可以看到25端口的进行号是38386，通过 kill -9 38386 杀掉该进程：</p>
-<p>占用25端口的进行号已被杀掉。</p>
-<p>补充说明：</p>
-<p>sockstat -4l ——可以查看侦听端口的程序，其中4表示ipv4，l表示listen</p>
-<p>sockstat -4c ——可以查看已建立的连接状况。</p>
-<p>sockstat -4 ——等于上述两个命令的和。</p>
+<ul>
+<li>client:<br>
+以下：43.132.205.241用server ip替换</li>
+</ul>
+<pre><code class="language-bash">interface l2tp-client add connect-to=43.132.205.241 disabled=no   name=l2tp_client password=“自定义” user=wu
+ip firewall nat add action=masquerade chain=srcnat
+ip route add dst-address=43.132.205.247 gateway=10.0.0.1 distance=1
+ip route add dst-address=0.0.0.0/0 gateway=10.1.1.1 distance=1
+ip dns set allow-remote-requests=yes
+</code></pre>
+<ul>
+<li>
+<p>接下来需要：</p>
+<pre><code>服务端和客户端都需要伪装，都需执行命令：
+/ip firewall nat add chain=srcnat action=masquerade
+</code></pre>
+<pre><code class="language-bash">client 端
+/ip route add gateway=10.1.1.1 dst-address=0.0.0.0/0 distance=1
+/ip route add gateway=l2tp_client dst-address=0.0.0.0/0 distance=1
+ip route add gateway=10.0.0.1 dst-address=43.132.205.241 distance=1
+
+
+</code></pre>
+<pre><code class="language-bash">server端
+/ip route add gateway=&lt;l2tp-wu&gt; dst-address=10.0.0.0/24 distance=1
+</code></pre>
+</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://mypppv.github.io/post-images/1630724110067.PNG" alt="" loading="lazy"></figure>
 
             </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://mypppv.github.io/post/freebsd-kai-qi-ssh-yuan-cheng-deng-lu/">
+                <a href="https://mypppv.github.io/post/how-to-install-awall-on-alpine-linux/">
                   <h3 class="post-title">
-                    # FreeBSD开启SSH远程登录
+                    How to install Awall on Alpine Linux
                   </h3>
                 </a>
               </div>

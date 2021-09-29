@@ -3,11 +3,11 @@ main:
   - title: "出版"
     url: /publications/
 
-  - title: "畅谈"
-    url: /talks/    
+#  - title: "畅谈"
+#    url: /talks/    
 
-  - title: "教学"
-    url: /teaching/    
+#  - title: "教学"
+#    url: /teaching/    
     
   - title: "非盈利"
     url: /portfolio/

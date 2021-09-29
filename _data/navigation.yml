@@ -15,8 +15,8 @@ main:
   - title: "博客文章"
     url: /year-archive/
     
-  - title: "无聊"
-    url: /cv/
+#  - title: "无聊"
+#    url: /cv/
     
   - title: "帮助"
     url: /markdown/

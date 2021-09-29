@@ -1,15 +1,254 @@
----
-title: "Paper Title Number 1"
-collection: publications
-permalink: /publication/2009-10-01-paper-title-number-1
-excerpt: 'This paper is about the number 1. The number 2 is left for future work.'
-date: 2009-10-01
-venue: 'Journal 1'
-paperurl: 'http://academicpages.github.io/files/paper1.pdf'
-citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 1</i>. 1(1).'
----
-This paper is about the number 1. The number 2 is left for future work.
+> 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.quchao.net](https://www.quchao.net/Alpine.html)
 
-[Download paper here](http://academicpages.github.io/files/paper1.pdf)
+> 前言今年是一个不同寻常的开年，相信每个人身上都发生了很多变化，所以博主琐事缠身博客更新没跟上，望谅解。回归正题，最近有朋友问 Mark 一些构建 Docker 方面的问题，自然说到镜像优化方面的...
 
-Recommended citation: Your Name, You. (2009). "Paper Title Number 1." <i>Journal 1</i>. 1(1).
+*   发布时间：2020 年 05 月 08 日
+*   6900 次浏览
+*   [6 条评论](#comments)
+*   2922 字数
+*   分类： [技术经验](https://www.quchao.net/category/Exp.html) [信息安全](https://www.quchao.net/category/Safety.html) [容器相关](https://www.quchao.net/category/Docker.html)
+
+1.  [首页](https://www.quchao.net/)
+2.  正文  
+
+分享到：[](http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.quchao.net/Alpine.html&title=Alpine%20(%E9%AB%98%E5%B1%B1)%20%20Linux%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B&site=https://www.quchao.net/)[](http://service.weibo.com/share/share.php?url=https://www.quchao.net/Alpine.html&title=Alpine%20(%E9%AB%98%E5%B1%B1)%20%20Linux%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B)
+
+前言
+--
+
+今年是一个不同寻常的开年，相信每个人身上都发生了很多变化，所以博主琐事缠身博客更新没跟上，望谅解。  
+回归正题，最近有朋友问 Mark 一些构建 Docker 方面的问题，自然说到镜像优化方面的东西，索性就聊一下 `Alpine` (高山)。
+
+* * *
+
+介绍
+--
+
+Alpine Linux 是一款独立的、非商业的通用 Linux 发行版，专为追求安全性、简单性和资源效率的用户而设计。  
+可能很多人没听说过这个 Linux 发行版本，但是经常用 `Docker` 的朋友可能都用过，因为他因 小，简单，安全而著称，所以作为基础镜像是非常好的一个选择，可谓是麻雀虽小但五脏俱全，简直不要太方便, 镜像非常小巧，不到 `6M` 的大小，所以特别适合容器打包。
+
+* * *
+
+容器体验 Alpine
+-----------
+
+使用命令
+
+```
+docker run -it alpine /bin/sh
+
+```
+
+可运行 Alpine Linux，由于 Alpine Linux 没有内置`bash`，所以这里使用的`sh`作为伪终端，在为 Alpine Linux 编写 shell 脚本的时候也需要注意，使用 `sh` 而不是`bash`。
+
+* * *
+
+软件管理
+----
+
+Alpine Linux 使用`apk`指令来管理软件，类似 CentOS 的`yum`或 Debian 的`apt-get`，首次使用建议用`apk update`更新下软件，以免无法正常使用。apk 的常用指令如下：
+
+```
+#更新软件
+apk update
+#搜索某个软件
+apk search xxx
+#安装软件
+apk add xxx
+#卸载软件
+apk del xxx
+#查看使用帮助
+apk -h
+
+```
+
+* * *
+
+设置时区
+----
+
+Alpine 时区非东八区，某些项目需要和北京时间保持同步，因此我们需要对默认时区做出修改，方法如下：
+
+```
+#安装timezone
+apk add -U tzdata
+#查看时区列表
+ls /usr/share/zoneinfo
+#拷贝需要的时区文件到localtime
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+#查看当前时间
+date
+#为了精简镜像，可以将 tzdata 删除了
+apk del tzdata
+
+```
+
+* * *
+
+修改软件源
+-----
+
+如果是国内网络使用 Alpine，可以使用国内镜像源，这样速度更加理想，常用的国内镜像源如下：
+
+*   清华 TUNA 镜像源：[https://mirrors.tuna.tsinghua.edu.cn/alpine/](https://mirrors.tuna.tsinghua.edu.cn/alpine/)
+*   中科大镜像源：[http://mirrors.ustc.edu.cn/alpine/](http://mirrors.ustc.edu.cn/alpine/)
+*   阿里云镜像源：[http://mirrors.aliyun.com/alpine/](http://mirrors.aliyun.com/alpine/)
+
+软件源的配置文件位于`/etc/apk/repositories`，内容如下：
+
+```
+http://dl-cdn.alpinelinux.org/alpine/v3.11/main
+http://dl-cdn.alpinelinux.org/alpine/v3.11/community
+
+```
+
+可以看到这里使用的 Alpine 软件源版本为`v3.11`，所以我们在修改的时候需要版本保持一致，比如修改为阿里的软件源：
+
+```
+http://mirrors.aliyun.com/alpine/v3.11/main
+http://mirrors.aliyun.com/alpine/v3.11/community
+
+```
+
+更多软件源可参考官方列表：[](https://mirrors.alpinelinux.org/)[https://mirrors.alpinelinux.org/](https://mirrors.alpinelinux.org/)
+
+* * *
+
+结语
+--
+
+Alpine 官方网站：[https://www.alpinelinux.org](https://www.alpinelinux.org/)  
+Alpine PKGS：[https://pkgs.alpinelinux.org/packages](https://pkgs.alpinelinux.org/packages)  
+Alpine Linux 体积非常小巧，但功能不输其它 Linux 发行版，非常适合用来打包 Docker 镜像，在 DockerHub 搜索镜像的时候您会发现很多都是基于 Alpine Linux，简直就是天生为容器所准备。
+
+* * *
+
+> 版权声明：本文为原创文章，版权归 Mark's Blog 所有，转载请注明出处！
+> 
+> 本文链接：[https://www.quchao.net/Alpine.html](https://www.quchao.net/Alpine.html)
+> 
+> 友情提示：如果博客部分链接出现 404，请留言或者联系博主修复。
+
+如果觉得我的文章对你有用，请随意赞赏
+
+**扫一扫支付**
+
+![](https://www.quchao.net/usr/picture/alipay.jpg)![](https://www.quchao.net/usr/picture/wxpay.jpg)
+
+[Mark](#) • 2020 年 05 月 08 日
+
+前言
+--
+
+今年是一个不同寻常的开年，相信每个人身上都发生了很多变化，所以博主琐事缠身博客更新没跟上，望谅解。  
+回归正题，最近有朋友问 Mark 一些构建 Docker 方面的问题，自然说到镜像优化方面的东西，索性就聊一下 `Alpine` (高山)。
+
+* * *
+
+介绍
+--
+
+Alpine Linux 是一款独立的、非商业的通用 Linux 发行版，专为追求安全性、简单性和资源效率的用户而设计。  
+可能很多人没听说过这个 Linux 发行版本，但是经常用 `Docker` 的朋友可能都用过，因为他因 小，简单，安全而著称，所以作为基础镜像是非常好的一个选择，可谓是麻雀虽小但五脏俱全，简直不要太方便, 镜像非常小巧，不到 `6M` 的大小，所以特别适合容器打包。
+
+* * *
+
+容器体验 Alpine
+-----------
+
+使用命令
+
+```
+docker run -it alpine /bin/sh
+
+```
+
+可运行 Alpine Linux，由于 Alpine Linux 没有内置`bash`，所以这里使用的`sh`作为伪终端，在为 Alpine Linux 编写 shell 脚本的时候也需要注意，使用 `sh` 而不是`bash`。
+
+* * *
+
+软件管理
+----
+
+Alpine Linux 使用`apk`指令来管理软件，类似 CentOS 的`yum`或 Debian 的`apt-get`，首次使用建议用`apk update`更新下软件，以免无法正常使用。apk 的常用指令如下：
+
+```
+#更新软件
+apk update
+#搜索某个软件
+apk search xxx
+#安装软件
+apk add xxx
+#卸载软件
+apk del xxx
+#查看使用帮助
+apk -h
+
+```
+
+* * *
+
+设置时区
+----
+
+Alpine 时区非东八区，某些项目需要和北京时间保持同步，因此我们需要对默认时区做出修改，方法如下：
+
+```
+#安装timezone
+apk add -U tzdata
+#查看时区列表
+ls /usr/share/zoneinfo
+#拷贝需要的时区文件到localtime
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+#查看当前时间
+date
+#为了精简镜像，可以将 tzdata 删除了
+apk del tzdata
+
+```
+
+* * *
+
+修改软件源
+-----
+
+如果是国内网络使用 Alpine，可以使用国内镜像源，这样速度更加理想，常用的国内镜像源如下：
+
+*   清华 TUNA 镜像源：[https://mirrors.tuna.tsinghua.edu.cn/alpine/](https://mirrors.tuna.tsinghua.edu.cn/alpine/)
+*   中科大镜像源：[http://mirrors.ustc.edu.cn/alpine/](http://mirrors.ustc.edu.cn/alpine/)
+*   阿里云镜像源：[http://mirrors.aliyun.com/alpine/](http://mirrors.aliyun.com/alpine/)
+
+软件源的配置文件位于`/etc/apk/repositories`，内容如下：
+
+```
+http://dl-cdn.alpinelinux.org/alpine/v3.11/main
+http://dl-cdn.alpinelinux.org/alpine/v3.11/community
+
+```
+
+可以看到这里使用的 Alpine 软件源版本为`v3.11`，所以我们在修改的时候需要版本保持一致，比如修改为阿里的软件源：
+
+```
+http://mirrors.aliyun.com/alpine/v3.11/main
+http://mirrors.aliyun.com/alpine/v3.11/community
+
+```
+
+更多软件源可参考官方列表：[](https://mirrors.alpinelinux.org/)[https://mirrors.alpinelinux.org/](https://mirrors.alpinelinux.org/)
+
+* * *
+
+结语
+--
+
+Alpine 官方网站：[https://www.alpinelinux.org](https://www.alpinelinux.org/)  
+Alpine PKGS：[https://pkgs.alpinelinux.org/packages](https://pkgs.alpinelinux.org/packages)  
+Alpine Linux 体积非常小巧，但功能不输其它 Linux 发行版，非常适合用来打包 Docker 镜像，在 DockerHub 搜索镜像的时候您会发现很多都是基于 Alpine Linux，简直就是天生为容器所准备。
+
+* * *
+
+> 版权声明：本文为原创文章，版权归 Mark's Blog 所有，转载请注明出处！
+> 
+> 本文链接：[https://www.quchao.net/Alpine.html](https://www.quchao.net/Alpine.html)
+> 
+> 友情提示：如果博客部分链接出现 404，请留言或者联系博主修复。

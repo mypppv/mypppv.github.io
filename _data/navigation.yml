@@ -1,6 +1,6 @@
-# main links links
+﻿# main links links
 main:
-  - title: "       日记        "
+  - title: "日记"
     url: /publications/
 
 #  - title: "畅谈"
@@ -14,5 +14,5 @@ main:
     url: /portfolio/   
 #  - title: "无聊"
 #    url: /cv/
-  - title: "帮助"
+  - title: "关于"
     url: /markdown/

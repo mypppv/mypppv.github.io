@@ -1,18 +1,23 @@
----
-title: "Alpine Linux 使用教程"
+﻿---
+﻿title: "Alpine Linux 使用教程"
 collection: publications
-permalink: /publication/Alpine -高山- Linux 入门教程 - Mark's Blog - Quchao-net
+permalink: /publication/Alpine-Linux 入门教程
+
 ---
 
 
 
-> 前言今年是一个不同寻常的开年，相信每个人身上都发生了很多变化，所以博主琐事缠身博客更新没跟上，望谅解。回归正题，最近有朋友问 Mark 一些构建 Docker 方面的问题，自然说到镜像优化方面的...
+
+
+
+
+前言今年是一个不同寻常的开年，相信每个人身上都发生了很多变化，所以博主琐事缠身博客更新没跟上，望谅解。回归正题，最近有朋友问 Mark 一些构建 Docker 方面的问题，自然说到镜像优化方面的...
 
 前言
 --
 
 今年是一个不同寻常的开年，相信每个人身上都发生了很多变化，所以博主琐事缠身博客更新没跟上，望谅解。  
-回归正题，最近有朋友问 Mark 一些构建 Docker 方面的问题，自然说到镜像优化方面的东西，索性就聊一下 `Alpine` (高山)。
+回归正题，最近有朋友问 Mark 一些构建 Docker 方面的问题，自然说到镜像优化方面的东西，索性就聊一下 `Alpine` 。
 
 * * *
 
@@ -115,5 +120,4 @@ http://mirrors.aliyun.com/alpine/v3.11/community
 Alpine 官方网站：[https://www.alpinelinux.org](https://www.alpinelinux.org/)  
 Alpine PKGS：[https://pkgs.alpinelinux.org/packages](https://pkgs.alpinelinux.org/packages)  
 Alpine Linux 体积非常小巧，但功能不输其它 Linux 发行版，非常适合用来打包 Docker 镜像，在 DockerHub 搜索镜像的时候您会发现很多都是基于 Alpine Linux，简直就是天生为容器所准备。
-
 

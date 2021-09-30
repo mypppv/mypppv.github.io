@@ -2,11 +2,11 @@
 title: "Alpine Linux 使用教程"
 collection: publications
 permalink: /publication/Alpine -高山- Linux 入门教程 - Mark's Blog - Quchao-net
-excerpt: 'This paper is about the number 2. The number 3 is left for future work.'
+#excerpt: 'This paper is about the number 2. The number 3 is left for future work.'
 date: 2010-10-01
 venue: 'Journal 1'
 paperurl: ''
-citation: 'Your Name, You. (2010). &quot;Paper Title Number 2.&quot; <i>Journal 1</i>. 1(2).'
+#citation: 'Your Name, You. (2010). &quot;Paper Title Number 2.&quot; <i>Journal 1</i>. 1(2).'
 ---
 
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.quchao.net](https://www.quchao.net/Alpine.html)

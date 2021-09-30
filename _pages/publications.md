@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "已发布"
+title: "已发布日记"
 permalink: /publications/
 author_profile: true
 ---

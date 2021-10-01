@@ -18,13 +18,9 @@
 
 
 
-\```
-
+```
 fastboot boot recovery.img
-
-\```
-
-
+```
 
 \4. 通过rec格式化所有分区，此时由于TWRP本身分区格式有问题，需要进入k20pro的rec格式化分区，然后再进入twrp挂载data分区，
 

@@ -50,15 +50,23 @@ services:
       - "80:80"
       - "443:443"
       - "1500:500"
-      - "11194:1194"
+      - "1194:1194"
       - "11701:1701"
       - "11723:1723"
       - "14500:4500"
-      - "15900:5900"
-      - "18080:8080"
+      - "5900:5900"
+      - "8080:8080"
       - "8291:8291"
       - "8728:8728"
       - "8729:8729"
+      - "1111:1111"
+      - "2222:2222"
+      - "3333:3333"
+      - "5555:5555"
+      - "6666:6666"
+      - "7777:7777"
+      - "8888:8888"
+      - "9999:9999"
     environment:
       - "VNCPASSWORD=false"
     network_mode: bridge
@@ -66,7 +74,7 @@ services:
 
 
   winbox:
-    image: cnblogme/novnc-winbox
+    image11 cnblogme/novnc-winbox
     container_name: winbox
     hostname: winbox
     restart: always

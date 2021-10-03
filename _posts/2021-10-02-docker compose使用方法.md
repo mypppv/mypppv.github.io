@@ -37,9 +37,9 @@ version: "3.3"
 
 services:
 
-  mkt01:
-    image: cnsoluciones/mikrotik:latest
-    container_name: mkt01
+  ros:
+    image: cnblogme/routeros:latest
+    container_name: ros
     restart: always
     ports:
       - "121:21"
@@ -47,8 +47,8 @@ services:
       - "123:23"
       - "150:50"
       - "151:51"
-      - "180:80"
-      - "1443:443"
+      - "80:80"
+      - "443:443"
       - "1500:500"
       - "11194:1194"
       - "11701:1701"
@@ -56,9 +56,9 @@ services:
       - "14500:4500"
       - "15900:5900"
       - "18080:8080"
-      - "18291:8291"
-      - "18728:8728"
-      - "18729:8729"
+      - "8291:8291"
+      - "8728:8728"
+      - "8729:8729"
     environment:
       - "VNCPASSWORD=false"
     network_mode: bridge
@@ -66,14 +66,14 @@ services:
 
 
   winbox:
-    image: cnsoluciones/novnc-winbox:latest
+    image: cnblogme/novnc-winbox
     container_name: winbox
     hostname: winbox
     restart: always
     #volumes:
     #  - ./user-data/.wine:/home/alpine/.wine
     links:
-      - "mkt01"
+      - "ros"
     ports:
       - "5901:5900"
       - "18081:8080"

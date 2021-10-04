@@ -40,7 +40,7 @@ docker exec -it a13b54439940 /bin/bash
 
   
 
-```bash
+```c#
 deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
 deb-src http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse

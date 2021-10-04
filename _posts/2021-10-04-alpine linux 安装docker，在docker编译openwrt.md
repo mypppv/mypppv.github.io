@@ -1,10 +1,11 @@
 ## 整体配置流程：
 
-| ①部署alpine linux环境 |
+| ==①部署alpine linux环境== |
 | :-------------------- |
-| ②安装、配置docker     |
-| ③配置ubuntu容器       |
-| ④编译openwrt          |
+| ==②安装、配置docker== |
+| ==③配置ubuntu容器==   |
+| ==④编译openwrt==      |
+
 
 ### 1、部署alpine linux环境
 
@@ -83,4 +84,8 @@ ping www.google.com
 ### 4、编译openwrt
 
 ​	具体教程参见 [lean openwrt](https://github.com/coolsnowwolf/lede)
+
+
+
+
 

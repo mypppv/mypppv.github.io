@@ -38,6 +38,8 @@ docker exec -it a13b54439940 /bin/bash
 
 - 换源：修改/etc/apt/sources.list，然后apt-get update
 
+  
+
 ```bash
 deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
 deb-src http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
@@ -53,7 +55,9 @@ deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted univer
 
 - 查看ubuntu版本 lsb_release -a
 
-- 安装 ifconfig和ping
+- 安装 ifconfig和ping：
+
+  
 
   ```bash
   apt-get install net-tools
@@ -63,6 +67,8 @@ deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted univer
   ```
 
 - 检查科学上网
+
+  
 
 ```
 traceroute www.google.com

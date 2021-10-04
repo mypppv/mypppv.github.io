@@ -1,10 +1,10 @@
 ## 整体配置流程：
 
-| 部署alpine linux环境 |
-| :------------------- |
-| 安装、配置docker     |
-| 配置ubuntu容器       |
-| 编译openwrt          |
+| ①部署alpine linux环境 |
+| :-------------------- |
+| ②安装、配置docker     |
+| ③配置ubuntu容器       |
+| ④编译openwrt          |
 
 ### 1、部署alpine linux环境
 

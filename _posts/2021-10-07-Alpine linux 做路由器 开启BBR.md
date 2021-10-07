@@ -1,14 +1,26 @@
-
-
 #### 1、期待路由器达到什么程度
 
-​	从 Li
+（1）作为主路由网关，处理其他主机的数据转发
 
+（2）可以进行pppoe拨号
 
+（3）通过iptables，使其具有ros防火墙的一些特性
+
+（4）具有DNS缓存功能，作为dns服务器，暂时选择方案为smartdns
+
+（5）dhcp服务，为局域网主机分配ip地址
+
+（6）BBR加速功能，针对tcp请求进行加速
 
 #### 2、准备alpine linux 镜像
 
+​	下载 [alpine linux镜像](https://raw.githubusercontent.com/mypppv/images/master/2021/2021-10/alpine%20linux.zip)，下载完成后使用VMware启动。需要注意的是部署到EXSI时，需要转换兼容对用版本。也可以自己到官网下载镜像ISO安装。账号root，密码0
+
 #### 3、设置ip地址
+
+​	下载 [alpine linux镜像](https://raw.githubusercontent.com/mypppv/images/master/2021/2021-10/alpine%20linux.zip)，下载完成后使用VMware启动。需要注意的是部署到EXSI时，需要转换兼容对用版本。也可以自己到官网下载镜像ISO安装。账号root，密码0
+
+#### 
 
 #### 4、设置iptables
 

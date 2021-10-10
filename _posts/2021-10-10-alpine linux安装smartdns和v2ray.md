@@ -4,7 +4,7 @@
 
 目的：针对操作系统提供DNS服务和BBR加速，提供socks代理（1080端口）
 
-想法：dns服务器采用smartdns，bbr通过内核开启即可
+想法：dns服务器采用smartdns，bbr通过内核开启即可，其它电脑通过此电脑作为网关，进行上网活动
 
 #### 2、smartdns
 
@@ -144,5 +144,22 @@ bbr:~# cat /etc/local.d/startup.start
 #!/bin/bash
 sudo nohup /root/v2ray/v2ray &
 sudo smartdns -f  -c /etc/smartdns/smartdns.conf
+```
+
+#### 4、开启数据转发
+
+```
+# /etc/sysctl.d 目录下新建一个 *.conf文件
+bbr:~/v2ray# cat /etc/sysctl.d/aa.conf
+net.ipv4.ip_forward=1
+reboot #需要重新启动
+```
+
+#### 4、设置此主机位网关
+
+​	需要在routeros命令行设置，登录10.0.0.1
+
+```
+/ip dhcp-server network set numbers=0 gateway=10.0.0.8 #假设此主机为10.0.0.8
 ```
 
